@@ -3,6 +3,8 @@
 namespace app\core;
 
 use app\configs\AppConfig;
+use ReflectionException;
+use ReflectionMethod;
 
 /*
  * Ограничение запроса по длинне предлагаю в конфигах прописать,
@@ -92,28 +94,26 @@ class Route
         }
         else
         {
-            var_dump($controller_file);
             route::page404(); //если такого файла нет отдаем 404
             return;
         }
 
-        self::getParams(); //получаем GET параметры
+        //self::getParams(); //получаем GET параметры
+
+        //if (isset($_GET[''])) unset($_GET['']);
 
         $controller_name = "app\\controllers\\".$controller_name;
 
-        $controller = new $controller_name(); // создаем экземпляр контроллера
-
         $action_name = "action_".strtolower($action); // получаем имя action в контроллере
 
-        if (method_exists($controller, $action_name))
-        {
-            $controller->$action_name(); // если такой экшен есть в контроллере то вызываем его, если нет опять 404
-        }
-        else
-        {
-            route::page404(2);
+        try {
+            $controller = new ReflectionMethod($controller_name, $action_name);
+            $controller->invokeArgs(new $controller_name(), $_GET);
+        } catch (ReflectionException $e) {
+            route::page404();
             return;
         }
+        //$controller->$action_name(); // если такой экшен есть в контроллере то вызываем его, если нет опять 404
     }
 
     public static function page404($stage = 1)
