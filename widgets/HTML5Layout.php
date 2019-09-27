@@ -40,8 +40,6 @@ class HTML5Layout
         $css = AppAssets::get_auto_load_css();
         foreach ($css as $item)
         {
-            echo "<pre>";
-            var_dump($item);
             $link = new Css($item);
             $head->push_back_content($link->render());
         }

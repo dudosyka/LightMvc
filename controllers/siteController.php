@@ -12,7 +12,6 @@ class siteController extends Controller
 {
     public function action_index()
     {
-        AppAssets::get_auto_load_css();
         $this->render("index");
     }
 }
