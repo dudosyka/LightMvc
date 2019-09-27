@@ -733,6 +733,7 @@ class Database
                 }
             }
         }
+        $query .= ")";
         return $query;
     }
 
@@ -888,4 +889,10 @@ class Database
         $this->sort['order'] = ['col' => $col, 'type' => $type];
         return $this;
     }
+
+    public function get_extra($name = null)
+    {
+        return ($name == null) ? $this->extra_columns : (isset($this->extra_columns[$name])) ? $this->extra_columns[$name] : NULL;
+    }
+
 }

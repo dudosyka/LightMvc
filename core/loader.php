@@ -41,4 +41,24 @@ class loader
             }
         }
     }
+
+    public static function load_css_libs($lib_dir)
+    {
+        $dir = __DIR__."/../web/assets/css/".$lib_dir;
+        if (file_exists($dir))
+        {
+            $dir = scandir($dir);
+            unset($dir[0], $dir[1]);
+            $result = [];
+            foreach ($dir as $item)
+            {
+                $file = explode(".", $item);
+                $doctype = $file[count($file) - 1];
+                if ($doctype == 'css' && count($file) < 3)
+                    $result[] = "$lib_dir/$item";
+            }
+            return $result;
+        }
+        return [false];
+    }
 }

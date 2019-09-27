@@ -33,7 +33,7 @@ class View
         {
             $view_filename = $view_name[0];
         }
-        $view_name = "$view_dirname/view_$view_filename.php";
+        $view_name = "$view_dirname/$view_filename.php";
         $template_path = '../views/templates/'.AppConfig::$layout;
         if (!file_exists('../views/'.$view_name))
         {

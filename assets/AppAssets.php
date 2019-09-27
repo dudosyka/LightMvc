@@ -3,6 +3,7 @@
 namespace app\assets;
 
 use app\configs\AppConfig;
+use app\core\loader;
 
 /*
  * Короче суть данной фичи, если тебе нужно добавить новые стили или скрипты на страницу
@@ -31,36 +32,33 @@ use app\configs\AppConfig;
  * "ключ" => "путь"
  * Где ключ - придуманое имя, а путь - путь относительно web/img/
  *
- * За отрисовку всей этой красоты в HTML занимаются классы Css() Script() Image()
+ * За отрисовку всей этой красоты в HTML занимаются классы $css Script() Image()
  */
 
 class AppAssets
 {
-    /**
-     * @return array
-     */
-    private static function js () {
-        return [
+    protected static $css = [
 
-        ];
-    }
+    ];
 
-    /**
-     * @return array
-     */
-    private static function css () {
-        return [
+    protected static $js = [
 
-        ];
-    }
+    ];
 
-    /**
-     * @return array
-     */
-    private static function img () {
-        return [
-            
-        ];
+    protected static $img = [
+
+    ];
+
+    public static $libs = [];
+
+    protected static function load_ccs_lib($lib_name)
+    {
+        $result = [];
+        foreach (loader::load_css_libs($lib_name) as $file)
+        {
+            $result[$file] = [true, $file];
+        }
+        self::$libs = array_merge(self::$libs, $result);
     }
 
     /**
@@ -69,7 +67,9 @@ class AppAssets
     public static function get_auto_load_css()
     {
         $output = [];
-        foreach (self::css() as $css => $value) {
+        $output = array_merge(loader::load_css_libs('bootstrap'), $output);
+        self::load_ccs_lib('bootstrap');
+        foreach (self::$css as $css => $value) {
             if ($value[0])
             {
                 $output[] = $css;
@@ -84,7 +84,7 @@ class AppAssets
     public static function get_auto_load_js()
     {
         $output = [];
-        foreach (self::js() as $js => $value) {
+        foreach (self::$js as $js => $value) {
             if ($value[0])
             {
                 $output[] = $js;
@@ -99,7 +99,7 @@ class AppAssets
      */
     public static function get_js($name)
     {
-        return AppConfig::assets()."/js/".self::js()[$name][1];
+        return (isset($css[$name])) ? AppConfig::assets()."/js/".self::$js[$name][1] : AppConfig::assets()."/js/".self::$libs[$name][1];
     }
 
     /**
@@ -108,7 +108,7 @@ class AppAssets
      */
     public static function get_css($name)
     {
-        return AppConfig::assets()."/css/".self::css()[$name][1];
+        return (isset($css[$name])) ? AppConfig::assets()."/css/".self::$css[$name][1] : AppConfig::assets()."/css/".self::$libs[$name][1];
     }
 
     /**
@@ -116,6 +116,6 @@ class AppAssets
      * @return string
      */
     public static function get_img($name){
-        return AppConfig::assets()."/img/".self::img()[$name];
+        return AppConfig::assets()."/img/".self::$img[$name];
     }
 }

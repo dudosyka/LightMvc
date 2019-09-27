@@ -84,6 +84,8 @@ class Route
         }
 
 
+        $controller = "site";
+
         $controller_name = strtolower($controller)."Controller"; // получаем имя класса контроллера
 
         $controller_file = "../controllers/".$controller_name.".php"; // получаем имя файла с классом контроллера
@@ -110,7 +112,7 @@ class Route
             $controller = new ReflectionMethod($controller_name, $action_name);
             $controller->invokeArgs(new $controller_name(), $_GET);
         } catch (ReflectionException $e) {
-            route::page404();
+            route::page404(2);
             return;
         }
         //$controller->$action_name(); // если такой экшен есть в контроллере то вызываем его, если нет опять 404
