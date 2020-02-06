@@ -46,4 +46,12 @@ class AppConfig {
     {
         return "http://".$_SERVER['HTTP_HOST']."/web/assets";
     }
+
+    public static $routes = [
+        'kek/lol' => 'site/index',
+        'POST kek/lol' => 'site/index',
+        'kek/<id:^\d+>/lol' => 'site/index'
+    ];
+    public static $debug_tools = true;
+
 }

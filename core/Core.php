@@ -14,9 +14,13 @@ loader::load_libs();
  * Мне пришла "гениальная" идея заюзать loader() для папки ядра
  */
 loader::load(__DIR__);
+loader::load(__DIR__."/Exception");
 loader::load("../config");
 loader::load("../assets");
 loader::load("../models");
 loader::load("../widgets");
+
+set_exception_handler(array("ExceptionHandler", "handler"));
+set_error_handler(array("ErrorHandler", "handler"));
 
 app\core\Route::start();
