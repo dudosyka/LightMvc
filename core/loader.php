@@ -8,6 +8,7 @@ class loader
     {
         $list  = scandir($dir);
         unset($list[0],$list[1]);
+	$list = ($reverse) ? array_reverse($list) : $list;        
         foreach ($list as $item)
         {
             if (is_file($dir."/".$item))
