@@ -4,6 +4,7 @@ namespace app\core;
 
 use app\configs\AppConfig;
 use app\widgets\HTML5Layout;
+use mysql_xdevapi\Exception;
 
 /*
  * 17.07.19

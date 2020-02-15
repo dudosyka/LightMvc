@@ -13,9 +13,11 @@ loader::load_libs();
  * Ну тут небольшое изменение совсем
  * Мне пришла "гениальная" идея заюзать loader() для папки ядра
  */
+echo "<pre>";
 loader::load(__DIR__);
 loader::load(__DIR__."/Exception");
 loader::load("../config");
+loader::load(__DIR__."/Database", true);
 loader::load("../assets");
 loader::load("../models");
 loader::load("../widgets");

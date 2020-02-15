@@ -4,11 +4,11 @@ namespace app\core;
 
 class loader
 {
-    public static function load($dir)
+    public static function load($dir, $reverse = false)
     {
         $list  = scandir($dir);
         unset($list[0],$list[1]);
-	$list = ($reverse) ? array_reverse($list) : $list;        
+        $list = ($reverse) ? array_reverse($list) : $list;
         foreach ($list as $item)
         {
             if (is_file($dir."/".$item))

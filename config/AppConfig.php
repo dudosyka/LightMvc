@@ -28,9 +28,9 @@ class AppConfig {
 
     public static $db_config = [
         'host' => 'localhost',
-        'user' => '',
-        'password' => '',
-        'database' => ''
+        'user' => 'dudosyka',
+        'password' => 'sasha-hatson-11',
+        'database' => 'blog'
         ];
 
     public static $valid_file_types = ['docs', 'docx', 'doc', 'odf', 'pdf', 'Djvu', 'txt'];
@@ -44,14 +44,14 @@ class AppConfig {
 
     public static function assets()
     {
-        return "http://".$_SERVER['HTTP_HOST']."/web/assets";
+//        return "http://".$_SERVER['HTTP_HOST']."/web/assets";
+        return "http://".$_SERVER['HTTP_HOST']."/mvc-framework/web/assets";
     }
 
     public static $routes = [
-        'kek/lol' => 'site/index',
-        'POST kek/lol' => 'site/index',
-        'kek/<id:^\d+>/lol' => 'site/index'
-    ];
-    public static $debug_tools = true;
-
+            'kek/lol' => 'site/index',
+            'POST kek/lol' => 'site/index',
+            'kek/<id:^\d+>/lol' => 'site/index'
+        ];
+        public static $debug_tools = true;
 }
